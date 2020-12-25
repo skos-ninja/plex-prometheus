@@ -20,6 +20,7 @@ func runE(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
+	// Collect stats on the size of the plex content
 	go func() {
 		for {
 			if err := libraryStats(plex); err != nil {
@@ -29,6 +30,9 @@ func runE(cmd *cobra.Command, args []string) error {
 			time.Sleep(time.Second * time.Duration(interval))
 		}
 	}()
+
+	// Collect stats on active streams on the server
+	streamStats(plex)
 
 	http.Handle("/metrics", promhttp.Handler())
 	return http.ListenAndServe(":8080", nil)

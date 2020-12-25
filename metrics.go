@@ -21,5 +21,5 @@ var (
 		Namespace: "plex",
 		Name:      "active_streams",
 		Help:      "The number of active streams",
-	}, []string{"library_id", "library_type"})
+	}, []string{"state", "library_id"})
 )
